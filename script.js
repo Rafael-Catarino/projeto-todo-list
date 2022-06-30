@@ -125,23 +125,23 @@ document.addEventListener('keydown', (event) => {
 
 function insertAddeventBtnLiFinish() {
   const btnLiFinish = document.querySelectorAll('.btn-li-finish');
-  for(let i = 0; i < btnLiFinish.length; i++) {
+  for (let i = 0; i < btnLiFinish.length; i++) {
     btnLiFinish[i].addEventListener('click', taskFinish);
   }
 }
 
 function insertAddeventLiMark() {
   const liTasc = document.querySelectorAll('li');
-  for(let i = 0; i < liTasc.length; i++) {
+  for (let i = 0; i < liTasc.length; i++) {
     liTasc[i].addEventListener('click', (event) => {
-    const color = document.querySelector('.mark');
-    if (color == null) {
-      event.target.classList = 'mark';
-      salvedTasks();
-    } else {
-      color.classList = 'li-tasks';
-      salvedTasks();
-    }
+      const color = document.querySelector('.mark');
+      if (color == null) {
+        event.target.classList = 'mark';
+        salvedTasks();
+      } else {
+        color.classList = 'li-tasks';
+        salvedTasks();
+      }
     });
   }
 }
