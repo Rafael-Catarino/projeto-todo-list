@@ -61,7 +61,7 @@ function createBtnLiFinish() {
 }
 
 function taskFinish() {
-  this.nextSibling.classList = 'li-tasks finish';
+  event.target.nextSibling.classList = 'li-tasks finish';
   salvedTasks();
 }
 
@@ -74,7 +74,7 @@ function createBtnLiClean() {
 }
 
 function removeTasksLi() {
-  this.parentNode.remove();
+  event.target.parentNode.remove();
   salvedTasks();
 }
 
