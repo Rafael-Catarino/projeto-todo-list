@@ -2,6 +2,8 @@ const tasks = document.querySelector('#tasks');
 const btnAdd = document.querySelector('#btn-add');
 const btnClean = document.querySelector('#btn-clean');
 const ulList = document.querySelector('#ul-list');
+const btnUp = document.querySelector('#btn-up');
+const btnDow = document.querySelector('#btn-dow');
 
 window.onload = [
   getSalvedTasks()
@@ -144,4 +146,24 @@ function insertAddeventLiMark() {
       }
     });
   }
+}
+
+btnUp.addEventListener('click', upTask);
+
+function upTask() {
+  const mark = document.querySelector('.mark').parentNode;
+  if (mark.previousElementSibling) {
+    mark.parentNode.insertBefore(mark, mark.previousElementSibling);
+  }
+  salvedTasks();
+}
+
+btnDow.addEventListener('click', dowTask);
+
+function dowTask() {
+  const mark = document.querySelector('.mark').parentNode;
+  if (mark.nextElementSibling) {
+    mark.parentNode.insertBefore(mark.nextElementSibling, mark);
+  }
+  salvedTasks();
 }
