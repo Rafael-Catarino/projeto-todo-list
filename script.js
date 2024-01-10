@@ -1,22 +1,20 @@
-const tasks = document.querySelector('#tasks');
-const btnAdd = document.querySelector('#btn-add');
-const btnClean = document.querySelector('#btn-clean');
-const ulList = document.querySelector('#ul-list');
-const btnUp = document.querySelector('#btn-up');
-const btnDow = document.querySelector('#btn-dow');
+const tasks = document.querySelector("#tasks");
+const btnAdd = document.querySelector("#btn-add");
+const btnClean = document.querySelector("#btn-clean");
+const ulList = document.querySelector("#ul-list");
+const btnUp = document.querySelector("#btn-up");
+const btnDow = document.querySelector("#btn-dow");
 
-window.onload = [
-  getSalvedTasks()
-]
+window.onload = [getSalvedTasks()];
 
-document.addEventListener('keydown', (event) => {
+document.addEventListener("keydown", (event) => {
   const tecla = event.keyCode;
   if (tecla === 13) {
     validateTasks();
   }
 });
 
-btnAdd.addEventListener('click', validateTasks);
+btnAdd.addEventListener("click", validateTasks);
 
 function validateTasks() {
   const tasksValue = tasks.value;
@@ -26,19 +24,19 @@ function validateTasks() {
   tasks.value = "";
 }
 
-btnClean.addEventListener('click', () => {
-  const lis = document.querySelectorAll('span');
+btnClean.addEventListener("click", () => {
+  const lis = document.querySelectorAll("span");
   for (let i = 0; i < lis.length; i++) {
     lis[i].remove();
   }
   salvedTasks();
-})
+});
 
 function createtasks(tasksValue) {
   const liTasks = createLi(tasksValue);
   const btnLiClean = createBtnLiClean();
   const btnLiFinish = createBtnLiFinish();
-  const span = document.createElement('span');
+  const span = document.createElement("span");
   span.appendChild(btnLiFinish);
   span.appendChild(liTasks);
   span.appendChild(btnLiClean);
@@ -47,31 +45,31 @@ function createtasks(tasksValue) {
 }
 
 function createLi(tasksValue) {
-  const liTasks = document.createElement('li');
+  const liTasks = document.createElement("li");
   liTasks.innerHTML = tasksValue;
-  liTasks.classList = 'li-tasks';
+  liTasks.classList = "li-tasks";
   markLi(liTasks);
   return liTasks;
 }
 
 function createBtnLiFinish() {
-  const btnLiFinish = document.createElement('button');
-  btnLiFinish.addEventListener('click', taskFinish);
-  btnLiFinish.innerHTML = ' ✔️ ';
-  btnLiFinish.classList = 'btn-li-finish';
+  const btnLiFinish = document.createElement("button");
+  btnLiFinish.addEventListener("click", taskFinish);
+  btnLiFinish.innerHTML = " ✔️ ";
+  btnLiFinish.classList = "btn-li-finish";
   return btnLiFinish;
 }
 
-function taskFinish() {
-  event.target.nextSibling.classList = 'li-tasks finish';
+function taskFinish(event) {
+  event.target.nextSibling.classList.toggle("finish");
   salvedTasks();
 }
 
 function createBtnLiClean() {
-  const btnLiClean = document.createElement('button');
+  const btnLiClean = document.createElement("button");
   btnLiClean.addEventListener("click", removeTasksLi);
-  btnLiClean.innerHTML = ' 🗑️ ';
-  btnLiClean.classList = 'btn-li-clean';
+  btnLiClean.innerHTML = " 🗑️ ";
+  btnLiClean.classList = "btn-li-clean";
   return btnLiClean;
 }
 
@@ -81,12 +79,12 @@ function removeTasksLi() {
 }
 
 function salvedTasks() {
-  const liTasks = ulList.innerHTML
-  localStorage.setItem('liTasks', liTasks);
+  const liTasks = ulList.innerHTML;
+  localStorage.setItem("liTasks", liTasks);
 }
 
 function getSalvedTasks() {
-  const liTasks = localStorage.getItem('liTasks');
+  const liTasks = localStorage.getItem("liTasks");
   ulList.innerHTML = liTasks;
   insertAddEventBtnLiClean();
   insertAddeventBtnLiFinish();
@@ -94,27 +92,26 @@ function getSalvedTasks() {
 }
 
 function insertAddEventBtnLiClean() {
-  const btnsLi = document.querySelectorAll('.btn-li-clean');
+  const btnsLi = document.querySelectorAll(".btn-li-clean");
   for (let index = 0; index < btnsLi.length; index++) {
-    btnsLi[index].addEventListener('click', removeTasksLi);
+    btnsLi[index].addEventListener("click", removeTasksLi);
   }
 }
 
 function markLi(liTasks) {
-  liTasks.addEventListener('click', (event) => {
-    const color = document.querySelector('.mark');
+  liTasks.addEventListener("click", (event) => {
+    const color = document.querySelector(".mark");
     if (color === null) {
-      event.target.classList = 'mark';
+      event.target.classList = "mark";
     } else {
-      color.classList = 'li-tasks';
+      color.classList = "li-tasks";
     }
   });
 }
 
-
-document.addEventListener('keydown', (event) => {
+document.addEventListener("keydown", (event) => {
   const key = event.keyCode;
-  const mark = document.querySelector('.mark').parentNode;
+  const mark = document.querySelector(".mark").parentNode;
   if (mark) {
     if (key === 38 && mark.previousElementSibling) {
       mark.parentNode.insertBefore(mark, mark.previousElementSibling);
@@ -126,42 +123,42 @@ document.addEventListener('keydown', (event) => {
 });
 
 function insertAddeventBtnLiFinish() {
-  const btnLiFinish = document.querySelectorAll('.btn-li-finish');
+  const btnLiFinish = document.querySelectorAll(".btn-li-finish");
   for (let i = 0; i < btnLiFinish.length; i++) {
-    btnLiFinish[i].addEventListener('click', taskFinish);
+    btnLiFinish[i].addEventListener("click", taskFinish);
   }
 }
 
 function insertAddeventLiMark() {
-  const liTasc = document.querySelectorAll('li');
+  const liTasc = document.querySelectorAll("li");
   for (let i = 0; i < liTasc.length; i++) {
-    liTasc[i].addEventListener('click', (event) => {
-      const color = document.querySelector('.mark');
+    liTasc[i].addEventListener("click", (event) => {
+      const color = document.querySelector(".mark");
       if (color == null) {
-        event.target.classList = 'mark';
+        event.target.classList = "mark";
         salvedTasks();
       } else {
-        color.classList = 'li-tasks';
+        color.classList = "li-tasks";
         salvedTasks();
       }
     });
   }
 }
 
-btnUp.addEventListener('click', upTask);
+btnUp.addEventListener("click", upTask);
 
 function upTask() {
-  const mark = document.querySelector('.mark').parentNode;
+  const mark = document.querySelector(".mark").parentNode;
   if (mark.previousElementSibling) {
     mark.parentNode.insertBefore(mark, mark.previousElementSibling);
   }
   salvedTasks();
 }
 
-btnDow.addEventListener('click', dowTask);
+btnDow.addEventListener("click", dowTask);
 
 function dowTask() {
-  const mark = document.querySelector('.mark').parentNode;
+  const mark = document.querySelector(".mark").parentNode;
   if (mark.nextElementSibling) {
     mark.parentNode.insertBefore(mark.nextElementSibling, mark);
   }
